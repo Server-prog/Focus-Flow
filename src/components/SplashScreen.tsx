@@ -14,8 +14,7 @@ const SplashScreen = () => {
         className="flex flex-col items-center gap-4"
       >
         <motion.img
-          src="public/logo 1.svg"
-          alt="Logo"
+          src="/logo 1.svg" alt="logo"
           className="w-32 h-32"
           animate={{
             y: [0, -10, 0],
