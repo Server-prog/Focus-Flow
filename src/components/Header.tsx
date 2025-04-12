@@ -13,7 +13,6 @@ const Header = () => {
         <div className="flex items-center gap-2 cursor-pointer" onClick={() => navigate('/')}>
           <img src="/logo 1.svg" alt="logo" className="w-[29px] h-[35px]" />
           <h1 className="font-normal font-mochiy text-black">Timer</h1>
-          <img src="/src/assets/bi_file-break.svg" alt="icone" className="h-[30px] dork:white " />
         </div>
       </div>
 
