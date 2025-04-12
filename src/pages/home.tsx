@@ -164,117 +164,126 @@ const Home = () => {
   
 
   return (
-    <div className="flex flex-col items-center justify-center mt-6 ml-2 text-[18px] text-white bg-gradient-to-b">
+    <div className="flex flex-col items-center justify-center mt-6 text-[18px] text-white bg-gradient-to-b">
 
-        <div className="mt-4 p-4">
-            {currentTask ? (
-                <h2 className="text-lg text-black dark:text-white font-mono">Current task: {currentTask}</h2>
-              ) : (
-                <h2></h2>
-            )}
+<div className="mt-2 p-4 w-full max-w-md mx-auto text-center">
+  {currentTask ? (
+    <h2 className="text-lg text-black dark:text-white font-mono break-words">
+      Current task: {currentTask}
+    </h2>
+  ) : (
+    <h2></h2>
+  )}
+</div>
+
+<h1 className="text-black -mt-2 dark:text-white text-5xl sm:text-7xl font-mochiy text-center break-words">
+  {formatTime(timeLeft)}
+</h1>
+
+<div className="mt-6 flex flex-wrap justify-center gap-4 px-4">
+  <button 
+    className="bg-orange-500 rounded-full p-4"
+    onClick={startTimer}
+    disabled={isRunning}
+  >
+    <Play size={20} color="white" onClick={handleEnd} />
+  </button>
+
+  <button 
+    className="bg-orange-500 rounded-full p-4"
+    onClick={pauseTimer}
+    disabled={!isRunning}
+  >
+    <Pause size={20} color="white" />
+  </button>
+
+  <button 
+    className="bg-orange-500 rounded-full p-4"
+    onClick={resetTimer}
+  >
+    <Square size={20} color="white" />
+  </button>
+</div>
+
+
+      <div className="w-full max-w-[370px] sm:max-w-md mx-auto px-4">
+        {/* Input + Botão */}
+        <div className="mt-6 gap-4 flex sm:flex-row items-center justify-center w-full">
+          <input 
+            type="text" 
+            value={taskName} 
+            onChange={(e) => setTaskName(e.target.value)} 
+            className="w-full max-w-[300px] sm:w-[300px] p-2 border border-gray-950 dark:border-gray-300 rounded-md bg-gray-500 dark:bg-white dark:text-black mb-2 sm:mb-0"
+            placeholder="Add new focus"
+          />
+          <button
+            className="w-full max-w-[50px] sm:w-auto bg-orange-500 hover:bg-orange-400 dark:text-white text-black py-2 px-4 rounded-lg mb-2 sm:mb-0"
+            onClick={addTask}
+          >
+            <Send size={20} color="white" />
+          </button>
         </div>
 
-      <h1 className="text-black dark:text-white text-7xl font-mochiy">{formatTime(timeLeft)}</h1>
-
-      <div className="mt-6">
-        <button 
-          className="bg-orange-500 rounded-full p-4 m-2"
-          onClick={startTimer}
-          disabled={isRunning}
-        >
-          <Play size={20} color="white" onClick={handleEnd} />
-        </button>
-
-        <button 
-          className="bg-orange-500 rounded-full p-4 m-2"
-          onClick={pauseTimer}
-          disabled={!isRunning}
-        >
-          <Pause size={20} color="white" />
-        </button>
-
-        <button 
-          className="bg-orange-500 rounded-full p-4 m-2"
-          onClick={resetTimer}
-        >
-          <Square size={20} color="white" />
-        </button>
-      </div>
-
-      <div className="mt-6 gap-4 flex justify-center">
-        <input 
-          type="text" 
-          value={taskName} 
-          onChange={(e) => setTaskName(e.target.value)} 
-          className="w-[300px] p-2 border border-gray-950 dark:border-gray-300 rounded-md bg-gray-500 dark:bg-white dark:text-black mb-2"
-          placeholder="Add new focus"
-        />
-        <button
-          className="bg-orange-500 hover:bg-orange-400 dark:text-white text-black py-2 px-4 rounded-lg mb-2"
-          onClick={addTask}
-        >
-            <Send size={20} color="white" />
-        </button>
-      </div>
-
-      <div className="mt-6 w-[370px] max-w-md">
-        <ul className="space-y-3">
-          {tasks.map((task, index) => (
-            <li
-              key={index}
-              className="flex items-center justify-between px-4 py-2 rounded-lg bg-white border border-black dark:bg-black cursor-pointer"
-              onClick={() => setCurrentTask(task.name)}
-            >
-              <div className="flex items-center gap-3">
-                <input
-                  type="checkbox"
-                  checked={task.status === "concluída"}
-                  onChange={() => toggleTaskStatus(index)}
-                  className="w-4 h-4 accent-orange-500"
-                />
-                <span
-                  className={`font-semibold ${
-                    task.status === "concluída"
-                      ? "line-through text-gray-400"
-                      : "text-black dark:text-white"
-                  }`}
-                >
-                  {task.name}
-                </span>
-              </div>
-              <div className="flex items-center gap-3">
-                {renderStatusBadge(task.status)}
-                <div className="relative">
-                  <button onClick={(e) => {
-                    e.stopPropagation();
-                    setShowOptions((prev) => (prev === index ? null : index));
-                  }}>
-                    <MoreHorizontal className="text-black dark:text-white mt-2" />
-                  </button>
-
-                  {showOptions === index && (
-                    <div className="absolute right-0 mt-2 w-32 bg-white dark:bg-gray-800 border border-x border-gray-300 dark:border-gray-700 rounded-md shadow-lg z-10">
-                      <button 
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          deleteTask(index);
-                          setShowOptions(null);
-                        }}
-                        className="w-full flex justify-center gap-2 text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100 dark:hover:bg-gray-700"
-                      >
-                        Deletar <Trash size={18} className="text-red-500 hover:text-red-700 transition-colors" />
-                      </button>
-                    </div>
-                  )}
+        {/* Lista de Tarefas */}
+        <div className="mt-6 w-full max-w-[370px] mx-auto">
+          <ul className="space-y-3">
+            {tasks.map((task, index) => (
+              <li
+                key={index}
+                className="flex items-center justify-between px-4 py-2 rounded-lg bg-white border border-black dark:bg-black cursor-pointer"
+                onClick={() => setCurrentTask(task.name)}
+              >
+                <div className="flex items-center gap-3">
+                  <input
+                    type="checkbox"
+                    checked={task.status === "concluída"}
+                    onChange={() => toggleTaskStatus(index)}
+                    className="w-4 h-4 accent-orange-500"
+                  />
+                  <span
+                    className={`font-semibold ${
+                      task.status === "concluída"
+                        ? "line-through text-gray-400"
+                        : "text-black dark:text-white"
+                    }`}
+                  >
+                    {task.name}
+                  </span>
                 </div>
+                <div className="flex items-center gap-3">
+                  {renderStatusBadge(task.status)}
+                  <div className="relative">
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setShowOptions((prev) => (prev === index ? null : index));
+                      }}
+                    >
+                      <MoreHorizontal className="text-black dark:text-white mt-2" />
+                    </button>
 
-              </div>
-              
-            </li>
-          ))}
-        </ul>
-        
+                    {showOptions === index && (
+                      <div className="absolute right-0 mt-2 w-32 bg-white dark:bg-gray-800 border border-x border-gray-300 dark:border-gray-700 rounded-md shadow-lg z-10">
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            deleteTask(index);
+                            setShowOptions(null);
+                          }}
+                          className="w-full flex justify-center gap-2 text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100 dark:hover:bg-gray-700"
+                        >
+                          Deletar <Trash size={18} className="text-red-500 hover:text-red-700 transition-colors" />
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
+
     </div>
   );
 };

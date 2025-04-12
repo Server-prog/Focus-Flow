@@ -23,11 +23,15 @@ const Timer: React.FC = () => {
 
   return (
     <div className="text-center space-y-4">
+      <div className=''>
+        <h1 className="text-4xl font-bold">Pomodoro</h1>
+        <hr className='mt-3 border border-black dark:border-white' />
+      </div>
   <h2 className="text-2xl font-bold">Resting</h2>
   <div className="text-4xl font-mochiy">{formatTime(seconds)}</div>
   <button
     onClick={() => setIsRunning(!isRunning)}
-    className="bg-black flex ml-[100px] text-white px-4 py-2 rounded hover:bg-gray-950 gap-2"
+    className=" flex ml-[100px] text-black dark:text-white px-4 py-2 rounded gap-2"
   >
     {isRunning ? (
       <>
