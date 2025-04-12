@@ -1,13 +1,33 @@
 import { useState, useEffect, useRef } from "react";
 import { Pause, Play, Square, MoreHorizontal, Send, Trash } from "lucide-react";
 import { useSound } from '../hooks/useSound'
+import { toast } from 'react-toastify';
+
 
 const Home = () => {
   const [showOptions, setShowOptions] = useState<number | null>(null);
 
   const deleteTask = (index: number) => {
+    if (index < 0 || index >= tasks.length) {
+      toast.error("Error deleting task.", {
+        position: "bottom-left",
+        autoClose: 3000,
+        theme: "colored",
+      });
+      return;
+    }
+  
+    const deletedTask = tasks[index]?.name;
+  
     setTasks((prev) => prev.filter((_, i) => i !== index));
+  
+    toast.success(`Task "${deletedTask}" successfully deleted.`, {
+      position: "bottom-left",
+      autoClose: 3000,
+      theme: "dark",
+    });
   };
+  
   
   const { play } = useSound('/sounds/som1.mp3', 0.7)
 
@@ -36,10 +56,24 @@ const Home = () => {
     if (taskName.trim() !== "") {
       setTasks((prev) => [...prev, { name: taskName, status: "pendente" }]);
       setTaskName("");
+      toast.info("New task added!", {
+        position: "bottom-left",
+        autoClose: 3000,
+        theme: "dark",
+      });
     }
   };
 
   const startTimer = () => {
+    if (tasks.some(task => task.status === "em andamento") && !currentTask) {
+      toast.warning("Already have a task in progress.", {
+        position: "bottom-left",
+        autoClose: 3000,
+        theme: "colored",
+      });
+      return;
+    }
+  
     setIsRunning(true);
     setIsPaused(false);
     if (timerRef.current) clearInterval(timerRef.current);
@@ -118,8 +152,13 @@ const Home = () => {
   useEffect(() => {
     if (timeLeft === 0 && isRunning) {
       play();
-      console.log("Pomodoro finalizado!");
       setIsRunning(false);
+      console.log ("Pomodoro finalizado!")
+      toast.success("Task Completed!", {
+        position: "top-center",
+        autoClose: 3000,
+        theme: "dark",
+      });
     }
   }, [timeLeft, isRunning]);
   

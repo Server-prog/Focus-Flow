@@ -1,16 +1,21 @@
-import { useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom'
-import { Moon, Sun, Bell, Settings } from 'lucide-react'
-import { useTheme } from '../context/ThemeContext'
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { Moon, Sun, Bell, Settings } from 'lucide-react';
+import { useTheme } from '../context/ThemeContext';
+import Modal from './Modal';
+import Timer from './Timer';
+
 
 const Header = () => {
-  const navigate = useNavigate()
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const toggleModal = () => setIsModalOpen((prev) => !prev);
   const { theme, toggleTheme } = useTheme()
 
   return (
     <header className="flex items-center justify-around p-4 text-zinc-800 dark:text-white">
       <div className="flex justify-between gap-2 bg-zinc-400 rounded-md p-2 h-[50px]">
-        <div className="flex items-center gap-2 cursor-pointer" onClick={() => navigate('/')}>
+        <div className="flex items-center gap-2 cursor-pointer" onClick={toggleModal}>
           <img src="/logo 1.svg" alt="logo" className="w-[29px] h-[35px]" />
           <h1 className="font-normal font-mochiy text-black">Timer</h1>
         </div>
@@ -29,6 +34,9 @@ const Header = () => {
           {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
         </button>
       </div>
+      <Modal isOpen={isModalOpen} onClose={toggleModal}>
+        <Timer />
+      </Modal>
     </header>
   )
 }
