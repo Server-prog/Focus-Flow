@@ -1,54 +1,53 @@
-# React + TypeScript + Vite
+# FocusFlow – App de Pomodoro Personalizável
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+FocusFlow é uma aplicação web focada em produtividade, baseada na técnica Pomodoro.  
+O objetivo é ajudar os usuários a manterem o foco total durante ciclos de trabalho, com pausas bem definidas e estatísticas de desempenho.
 
-Currently, two official plugins are available:
+> A diferença? **Total personalização dos ciclos**, uma **UI moderna e fluida**, e **tudo isso rodando direto no navegador**, sem depender de backend.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+##  Funcionalidades
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+-  Temporizador Pomodoro com tempos ajustáveis (foco, pausa curta, pausa longa)
+-  Modo escuro para uma experiência mais confortável visualmente
+-  Histórico de sessões com registro de ciclos completados
+-  Notificações sonoras ao fim de cada ciclo (com Howler.js)
+-  Toasts de notificação para feedback rápido ao usuário (ex: sessão iniciada, configurações salvas)
+-  Persistência via `localStorage` – configurações e histórico salvos no navegador
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+---
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 🛠️ Tecnologias Utilizadas
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+-  **React + TypeScript** – Base da aplicação
+-  **TailwindCSS** – Design clean, responsivo e bonito
+-  **Framer Motion** – Animações suaves na UI
+-  **Howler.js** – Sons e alertas personalizáveis
+-  **React Toastify** – Notificações rápidas e elegantes
+-  **localStorage** – Armazenamento de dados local, sem backend
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+---
+
+## 💡 Diferenciais
+
+-  Foco em produtividade com simplicidade
+-  Design minimalista, pensado para **não distrair**
+-  Expansível: facilmente adaptável para adicionar login, sincronização em nuvem, integração com tarefas, estatísticas avançadas e mais!
+
+---
+
+## Como rodar localmente
+
+```bash
+# Clone o repositório
+git clone https://github.com/seu-usuario/focusflow.git
+
+# Acesse a pasta do projeto
+cd focusflow
+
+# Instale as dependências
+npm install
+
+# Rode a aplicação em ambiente de desenvolvimento
+npm run dev
