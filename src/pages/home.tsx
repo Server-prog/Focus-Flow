@@ -1,8 +1,14 @@
 import { useState, useEffect, useRef } from "react";
-import { Pause, Play, Square, MoreHorizontal, Send } from "lucide-react";
+import { Pause, Play, Square, MoreHorizontal, Send, Trash } from "lucide-react";
 import { useSound } from '../hooks/useSound'
 
 const Home = () => {
+  const [showOptions, setShowOptions] = useState<number | null>(null);
+
+  const deleteTask = (index: number) => {
+    setTasks((prev) => prev.filter((_, i) => i !== index));
+  };
+  
   const { play } = useSound('/sounds/som1.mp3', 0.7)
 
   const handleEnd = () => {
@@ -109,6 +115,15 @@ const Home = () => {
     }
   }, [isReset]);
 
+  useEffect(() => {
+    if (timeLeft === 0 && isRunning) {
+      play();
+      console.log("Pomodoro finalizado!");
+      setIsRunning(false);
+    }
+  }, [timeLeft, isRunning]);
+  
+
   return (
     <div className="flex flex-col items-center justify-center mt-6 ml-2 text-[18px] text-white bg-gradient-to-b">
 
@@ -152,7 +167,7 @@ const Home = () => {
           type="text" 
           value={taskName} 
           onChange={(e) => setTaskName(e.target.value)} 
-          className="w-[370px] p-2 border border-gray-950 dark:border-gray-300 rounded-md bg-gray-500 dark:bg-white dark:text-black mb-2"
+          className="w-[300px] p-2 border border-gray-950 dark:border-gray-300 rounded-md bg-gray-500 dark:bg-white dark:text-black mb-2"
           placeholder="Add new focus"
         />
         <button
@@ -163,7 +178,7 @@ const Home = () => {
         </button>
       </div>
 
-      <div className="mt-6 w-full max-w-md">
+      <div className="mt-6 w-[370px] max-w-md">
         <ul className="space-y-3">
           {tasks.map((task, index) => (
             <li
@@ -190,7 +205,30 @@ const Home = () => {
               </div>
               <div className="flex items-center gap-3">
                 {renderStatusBadge(task.status)}
-                <MoreHorizontal className="text-black dark:text-white" />
+                <div className="relative">
+                  <button onClick={(e) => {
+                    e.stopPropagation();
+                    setShowOptions((prev) => (prev === index ? null : index));
+                  }}>
+                    <MoreHorizontal className="text-black dark:text-white mt-2" />
+                  </button>
+
+                  {showOptions === index && (
+                    <div className="absolute right-0 mt-2 w-32 bg-white dark:bg-gray-800 border border-x border-gray-300 dark:border-gray-700 rounded-md shadow-lg z-10">
+                      <button 
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          deleteTask(index);
+                          setShowOptions(null);
+                        }}
+                        className="w-full flex justify-center gap-2 text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100 dark:hover:bg-gray-700"
+                      >
+                        Deletar <Trash size={18} className="text-red-500 hover:text-red-700 transition-colors" />
+                      </button>
+                    </div>
+                  )}
+                </div>
+
               </div>
               
             </li>
