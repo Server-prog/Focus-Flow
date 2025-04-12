@@ -33,7 +33,7 @@ const Home = () => {
 
   const handleEnd = () => {
     play()
-    console.log("Pomodoro finalizado!")
+    console.log("Pomodoro Inicializado!")
   }
   const initialTime = 25 * 60;
   const [timeLeft, setTimeLeft] = useState(initialTime);
@@ -166,48 +166,47 @@ const Home = () => {
   return (
     <div className="flex flex-col items-center justify-center mt-6 text-[18px] text-white bg-gradient-to-b">
 
-<div className="mt-2 p-4 w-full max-w-md mx-auto text-center">
-  {currentTask ? (
-    <h2 className="text-lg text-black dark:text-white font-mono break-words">
-      Current task: {currentTask}
-    </h2>
-  ) : (
-    <h2></h2>
-  )}
-</div>
+      <div className="mt-2 p-4 w-full max-w-md mx-auto text-center">
+        {currentTask ? (
+          <h2 className="text-lg text-black dark:text-white font-mono break-words">
+            Current task: {currentTask}
+          </h2>
+        ) : (
+          <h2></h2>
+        )}
+      </div>
 
-<h1 className="text-black -mt-2 dark:text-white text-5xl sm:text-7xl font-mochiy text-center break-words">
-  {formatTime(timeLeft)}
-</h1>
+      <h1 className="text-black -mt-2 dark:text-white text-5xl sm:text-7xl font-mochiy text-center break-words">
+        {formatTime(timeLeft)}
+      </h1>
 
-<div className="mt-6 flex flex-wrap justify-center gap-4 px-4">
-  <button 
-    className="bg-orange-500 rounded-full p-4"
-    onClick={startTimer}
-    disabled={isRunning}
-  >
-    <Play size={20} color="white" onClick={handleEnd} />
-  </button>
+      <div className="mt-6 flex flex-wrap justify-center gap-4 px-4">
+        <button 
+          className="bg-orange-500 rounded-full p-4"
+          onClick={startTimer}
+          disabled={isRunning}
+        >
+          <Play size={20} color="white" onClick={handleEnd} />
+        </button>
 
-  <button 
-    className="bg-orange-500 rounded-full p-4"
-    onClick={pauseTimer}
-    disabled={!isRunning}
-  >
-    <Pause size={20} color="white" />
-  </button>
+        <button 
+          className="bg-orange-500 rounded-full p-4"
+          onClick={pauseTimer}
+          disabled={!isRunning}
+        >
+          <Pause size={20} color="white" />
+        </button>
 
-  <button 
-    className="bg-orange-500 rounded-full p-4"
-    onClick={resetTimer}
-  >
-    <Square size={20} color="white" />
-  </button>
-</div>
+        <button 
+          className="bg-orange-500 rounded-full p-4"
+          onClick={resetTimer}
+        >
+          <Square size={20} color="white" />
+        </button>
+      </div>
 
 
       <div className="w-full max-w-[370px] sm:max-w-md mx-auto px-4">
-        {/* Input + Botão */}
         <div className="mt-6 gap-4 flex sm:flex-row items-center justify-center w-full">
           <input 
             type="text" 

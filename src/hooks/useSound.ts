@@ -4,7 +4,6 @@ import { Howl } from 'howler'
 export const useSound = (src: string, volume = 1.0) => {
   const soundRef = useRef<Howl | null>(null)
 
-  // Cria o som só uma vez
   if (!soundRef.current) {
     soundRef.current = new Howl({
       src: [src],
